@@ -26,26 +26,34 @@ public class Ocean {
 		this.shipsSunk = 0;
 	}
 
-	int[] generateRandom() {
-		int[] RandomVariable = new int[3]; 
-		int Row = new Random().nextInt(10);
-		int Column = new Random().nextInt(10);
-		int horizontal = new Random().nextInt(2);
-		RandomVariable[1]= Row;
-		RandomVariable[2]=Column;
-		RandomVariable[3]=horizontal;
-		return RandomVariable;
-	}
-
-	void placeAllShipsRandomly(){
+	void placeOneShip(Ship ship) {
 		boolean horizontal;
-		if (generateRandom()[2] == 1){
-			 horizontal= true;
-		}
-		else{
+		int row = new Random().nextInt(10);
+		int column = new Random().nextInt(10);
+		if (new Random().nextInt(2) == 1){
 			horizontal = false;
 		}
-		battleship.placeShipAt(generateRandom()[0],generateRandom()[1], horizontal, ocean);	
+		else{
+			horizontal =true;
+		}
+		
+		while(!ship.okToPlaceShipAt(row, column, horizontal, ocean)){
+			row = new Random().nextInt(10);
+			column = new Random().nextInt(10);
+			if (new Random().nextInt(2) == 1){
+				horizontal = false;
+			}
+			else{
+				horizontal =true;
+			}
+		}
+		ship.placeShipAt(row, column, horizontal, ocean);
+	}
+	
+	
+
+	void placeAllShipsRandomly(){
+		placeOneShip(this.battleship);
 	}
 
 	/**
