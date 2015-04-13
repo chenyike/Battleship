@@ -38,5 +38,73 @@ public class Ocean {
 		}
 		battleship.placeShipAt(Row,Column, horizontal, ocean);	
 	}
+	
+	/**
+     * Returns true if the given location contains a ship, false if it does not.
+     * @param row
+     * @param column
+     * @return
+     */
+    public boolean isOccupied(int row, int column){
+            
+        return true;
+    }
+    
+    
+    /**
+     * Returns true if the given location contains a ”real” ship, still afloat, (not an EmptySea), false if it does not. 
+     * @param row
+     * @param column
+     * @return
+     */
+    public boolean shootAt(int row, int column){
+        return true;
+    }
+    
+    /**
+     * Returns the number of shots fired (in this game).
+     * @return
+     */
+    public  int getShotsFired(){
+        return 1;
+    }
+    
+    /**
+     * Returns the number of hits recorded (in this game). All hits are counted
+     * @return
+     */
+    public int getHitCount(){
+        return 1;
+    }
+    
+    /**
+     * Returns the number of ships sunk (in this game).
+     * @return
+     */
+    public int getShipsSunk(){
+        return 1;
+    }
+    
+    /**
+     * Returns true if all ships have been sunk, otherwise false.
+     * @return
+     */
+    public boolean isGameOver(){
+        return true;
+    }
+    
+    /**
+     * Returns the 10x10 array of ships.
+     * @return
+     */
+    public Ship[][] getShipArray(){
+        return null;
+    }
+    
+    /**
+     * Prints the ocean. 
+     */
+    public void print(){
+    }
 
 }

@@ -88,7 +88,10 @@ abstract class Ship {
 	 * @param ocean
 	 */
 	public void placeShipAt(int row, int column, boolean horizontal, Ocean ocean){
-
+		this.bowRow = row;
+		this.bowColumn = column;
+		this.horizontal = horizontal;
+		
 	}
 
 	/**
