@@ -10,6 +10,15 @@ public class Ocean {
 	private EmptySea emptySea;
 	private Ship ship;
 	private Battleship battleship;
+	private Cruiser cruiser1;
+	private Cruiser cruiser2;
+	private Destroyer destroyer1;
+	private Destroyer destroyer2;
+	private Destroyer destroyer3;
+	private Submarine submarine1;
+	private Submarine submarine2;
+	private Submarine submarine3;
+	private Submarine submarine4;
 	private Ocean ocean;
 
 
@@ -54,6 +63,20 @@ public class Ocean {
 
 	void placeAllShipsRandomly(){
 		placeOneShip(this.battleship);
+		placeOneShip(this.cruiser1);
+		placeOneShip(this.cruiser2);
+		placeOneShip(this.destroyer1);
+		placeOneShip(this.destroyer2);
+		placeOneShip(this.destroyer3);
+		placeOneShip(this.submarine1);
+		placeOneShip(this.submarine2);
+		placeOneShip(this.submarine3);
+		placeOneShip(this.submarine4);
+
+
+
+		
+		
 	}
 
 	/**
@@ -63,7 +86,9 @@ public class Ocean {
 	 * @return
 	 */
 	public boolean isOccupied(int row, int column){
-
+		if (ships[row][column] instanceof EmptySea){
+			return false;
+		}
 		return true;
 	}
 
