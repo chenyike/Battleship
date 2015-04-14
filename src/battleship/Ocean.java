@@ -121,7 +121,7 @@ public class Ocean {
 	 * @return
 	 */
 	public int getHitCount(){
-		return 1;
+		return ocean.hitCount;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class Ocean {
 	 * @return
 	 */
 	public int getShipsSunk(){
-		return 1;
+		return ocean.shipsSunk;
 	}
 
 	/**
@@ -137,7 +137,12 @@ public class Ocean {
 	 * @return
 	 */
 	public boolean isGameOver(){
-		return true;
+		if (ocean.shipsSunk == 10){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	/**
@@ -152,6 +157,12 @@ public class Ocean {
 	 * Prints the ocean. 
 	 */
 	public void print(){
+		for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                System.out.print(ships[i][j] + " ");
+            }
+            System.out.println();
+        }
 	}
 
 }
