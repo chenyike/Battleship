@@ -186,7 +186,7 @@ abstract class Ship {
 		if (this.horizontal){
 			if ((row == this.bowRow) && (column <= this.bowColumn+this.length && column >= this.bowColumn)){
 				this.hit[column-this.bowColumn]=true;
-				ocean.setHitCount(1);
+				ocean.setHitCount(ocean.getHitCount()+1);
 				//ocean.hitCount++;
 				return true;
 			}
@@ -195,7 +195,7 @@ abstract class Ship {
 		else{
 			if ((column == this.bowColumn) && (row <= this.bowRow+this.length && row >= this.bowRow)){
 				this.hit[row-this.bowRow]=true;
-				ocean.hitCount++;
+				ocean.setHitCount(ocean.getHitCount()+1);
 				return true;
 			}
 			return false;
@@ -212,7 +212,7 @@ abstract class Ship {
 			isSunk = isSunk && this.hit[i];
 		}
 		if (isSunk){
-			ocean.shipsSunk++;
+			ocean.setShipsSunk(ocean.getShipsSunk()+1);
 			return true;
 		}
 		else{

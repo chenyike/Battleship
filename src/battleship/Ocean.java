@@ -19,7 +19,6 @@ public class Ocean {
 	private Submarine submarine2;
 	private Submarine submarine3;
 	private Submarine submarine4;
-	private Ocean ocean;
 
 
 	public Ocean() {
@@ -43,10 +42,10 @@ public class Ocean {
 			horizontal = false;
 		}
 		else{
-			horizontal =true;
+			horizontal = true;
 		}
 
-		while(! ship.okToPlaceShipAt(row, column, horizontal, ocean)){
+		while(! ship.okToPlaceShipAt(row, column, horizontal, this)){
 			row = new Random().nextInt(10);
 			column = new Random().nextInt(10);
 			if (new Random().nextInt(2) == 1){
@@ -56,7 +55,7 @@ public class Ocean {
 				horizontal =true;
 			}
 		}
-		ship.placeShipAt(row, column, horizontal, ocean);
+		ship.placeShipAt(row, column, horizontal, this);
 	}
 
 
@@ -81,7 +80,7 @@ public class Ocean {
 	 * @return
 	 */
 	public boolean isOccupied(int row, int column){
-		if (ships[row][column] instanceof EmptySea){
+		if (ships[row][column].getShipType().equals("emptySea")){
 			return false;
 		}
 		return true;
@@ -97,7 +96,7 @@ public class Ocean {
 	public boolean shootAt(int row, int column){
 		this.shotsFired ++;
 		if (!ship.isSunk()){
-			if (!(ships[row][column] instanceof EmptySea)){
+			if (!(ships[row][column].getShipType().equals("emptySea"))){
 				ship.shootAt(row, column);
 				return true;
 			}
@@ -113,7 +112,7 @@ public class Ocean {
 	 * @return
 	 */
 	public int getShipsSunk(){
-		return ocean.shipsSunk;
+		return this.shipsSunk;
 	}
 	
 	/**
@@ -129,7 +128,7 @@ public class Ocean {
 	 * @return
 	 */
 	public  int getShotsFired(){
-		return ocean.shotsFired;
+		return this.shotsFired;
 	}
 
 	/**
@@ -137,7 +136,7 @@ public class Ocean {
 	 * @return
 	 */
 	public int getHitCount(){
-		return ocean.hitCount;
+		return this.hitCount;
 	}
 	
 	/**
@@ -154,7 +153,7 @@ public class Ocean {
 	 * @return
 	 */
 	public boolean isGameOver(){
-		if (ocean.shipsSunk == 10){
+		if (this.shipsSunk == 10){
 			return true;
 		}
 		else{
@@ -187,6 +186,8 @@ public class Ocean {
 			}
 		}
 	}
+	
+
 
 	
 	
