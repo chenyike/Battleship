@@ -8,7 +8,6 @@ public class Ocean {
 	private int hitCount;
 	private int shipsSunk;
 	private EmptySea emptySea;
-	private Ship ship;
 	private Battleship battleship;
 	private Cruiser cruiser1;
 	private Cruiser cruiser2;
@@ -19,6 +18,7 @@ public class Ocean {
 	private Submarine submarine2;
 	private Submarine submarine3;
 	private Submarine submarine4;
+	private boolean[][] hits = new boolean[10][10];
 
 
 	public Ocean() {
@@ -27,6 +27,7 @@ public class Ocean {
 		for (int i=0; i<10 ;i++){
 			for (int j=0; j<10;j++){
 				ships[i][j] = emptySea; 
+				this.hits[i][j] = false;
 			}
 		}
 		this.shotsFired = 0;
@@ -88,24 +89,26 @@ public class Ocean {
 
 
 	/**
-	 * Returns true if the given location contains a ”real” ship, still afloat, (not an EmptySea), false if it does not. 
+	 * Returns true if the given location contains a real ship
 	 * @param row
 	 * @param column
 	 * @return
 	 */
 	public boolean shootAt(int row, int column){
-		this.shotsFired ++;
-		if (!ship.isSunk()){
-			if (!(ships[row][column].getShipType().equals("emptySea"))){
-				ship.shootAt(row, column);
-				return true;
+		this.shotsFired += 1;
+		this.hits[row][column] = true;
+		if(this.ships[row][column].shootAt(row,column)){
+			this.hitCount += 1;
+			if(this.ships[row][column].isSunk()){
+				this.shipsSunk += 1;
 			}
-			else{
-				return false;
-			}
+			return true;
 		}
 		return false;
 	}
+
+
+
 
 	/**
 	 * Returns the number of ships sunk (in this game).
@@ -114,15 +117,15 @@ public class Ocean {
 	public int getShipsSunk(){
 		return this.shipsSunk;
 	}
-	
+
 	/**
 	 * @param shipsSunk the shipsSunk to set
 	 */
 	public void setShipsSunk(int shipsSunk) {
 		this.shipsSunk = shipsSunk;
 	}
-	
-	
+
+
 	/**
 	 * Returns the number of shots fired (in this game).
 	 * @return
@@ -138,7 +141,7 @@ public class Ocean {
 	public int getHitCount(){
 		return this.hitCount;
 	}
-	
+
 	/**
 	 * @param hitCount the hitCount to set
 	 */
@@ -162,35 +165,42 @@ public class Ocean {
 	}
 
 
-
 	/**
-	 * Prints the ocean. 
+	 * Prints the ocean
 	 */
 	public void print(){
-		System.out.println("\t 0\t 1\t 2\t 3\t 4\t 5\t 6\t 7\t 8\t 9\n ");
-		for (int i = 0; i < 11; i++) {
-			System.out.println("0");
-			for (int j=0;j<10;j++){
-				if (ship.shootAt(i,j)){
-					System.out.println("\t S");
+		for(int i = 0; i < 11; i++){
+			for(int j = 0; j < 11; j++){
+				if(i==0){
+					if(j==0){
+						System.out.print(" "+" ");
+					}
+					else{
+						System.out.print(j-1+" ");
+					}
 				}
-				else if (!ship.shootAt(i,j)){
-					System.out.println("\t -");
-				}
-				else if (ship.isSunk()){
-					System.out.println("\t x");
-				}
-				else {
-					System.out.println("\t "+emptySea);
+				else{
+					if(j==0){
+						System.out.print(i-1 + " ");
+					}
+					else{
+						if(hits[i-1][j-1]){
+							System.out.print(ships[i-1][j-1] + " ");
+						}
+						else{
+							System.out.print("." + " ");
+						}
+					}
 				}
 			}
+			System.out.println();
 		}
 	}
-	
 
 
-	
-	
+
+
+
 
 	/**
 	 * @param shotsFired the shotsFired to set
@@ -213,7 +223,7 @@ public class Ocean {
 	public Ship[][] getShipArray(){
 		return ships;
 	}
-	
+
 	/**
 	 * @param ships the ships to set
 	 */
@@ -221,6 +231,6 @@ public class Ocean {
 		this.ships = ships;
 	}
 
-	
+
 
 }

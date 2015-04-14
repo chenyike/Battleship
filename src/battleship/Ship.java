@@ -10,8 +10,6 @@ abstract class Ship {
 	private int length;
 	private boolean horizontal;
 	private boolean [] hit = new boolean[4];
-	private Ocean ocean;
-
 
 
 	public int getLength() {
@@ -113,7 +111,7 @@ abstract class Ship {
 			int n=0;
 			//check if the ship is overlapped with other ships
 			for (int c = Column; c <= endColumn; c++ ){
-				for (int r =Row; r < endRow; r++){
+				for (int r =Row; r <= endRow; r++){
 					if(ocean.isOccupied(r, c)){
 						n ++;
 					}
@@ -148,86 +146,81 @@ abstract class Ship {
 	}
 
 
-
-
-
 	/**
-	 * Put the ship in the ocean
+	 * Puts the ship in the ocean
 	 * @param row
 	 * @param column
 	 * @param horizontal
 	 * @param ocean
 	 */
 	public void placeShipAt(int row, int column, boolean horizontal, Ocean ocean){
-		if(okToPlaceShipAt(row,column,horizontal, ocean)){
-			this.bowRow = row;
-			this.bowColumn = column;
-			this.horizontal = horizontal;
-			if (this.horizontal){
-				for (int i=this.bowColumn; i<=(this.bowColumn+this.getLength());i++){
-					ocean.getShipArray()[this.bowRow][i]=this;
-				}
-			}
-			else{
-				for (int i=this.bowRow; i<=(this.bowRow+this.getLength());i++){
-					ocean.getShipArray()[i][this.bowColumn]=this;
-				}
+		int L = this.getLength();
+		this.setBowRow(row);
+		this.setBowColumn(column);
+		this.setHorizontal(horizontal);
+		if(horizontal){
+			for (int i = column; i < column + L; i ++){
+				ocean.getShipArray()[row][i] = this;
+			}	
+		}
+		else{
+			for (int i = row; i <row + L; i++){
+				ocean.getShipArray()[i][column] = this;
 			}
 		}
 	}
 
 	/**
-	 * mark that part of the ship as ”hit” and return true,
+	 * Whether shoot at a ship
 	 * @param row
 	 * @param column
 	 * @return
 	 */
 	public boolean shootAt(int row, int column){
-		if (this.horizontal){
-			if ((row == this.bowRow) && (column <= this.bowColumn+this.length && column >= this.bowColumn)){
-				this.hit[column-this.bowColumn]=true;
-				ocean.setHitCount(ocean.getHitCount()+1);
-				//ocean.hitCount++;
-				return true;
+		int L = this.getLength();
+		if(!this.isSunk()){
+			if(this.isHorizontal()){
+				if(row == this.getBowRow() && column >= this.getBowColumn() && column <L + this.getBowColumn()){
+					this.hit[column - this.getBowColumn()] = true;
+					return true;
+				}
 			}
-			return false;
-		}
-		else{
-			if ((column == this.bowColumn) && (row <= this.bowRow+this.length && row >= this.bowRow)){
-				this.hit[row-this.bowRow]=true;
-				ocean.setHitCount(ocean.getHitCount()+1);
-				return true;
+			else{
+				if(row >= this.getBowRow() && row < this.getBowRow()+L && column == this.getBowColumn()){
+					this.hit[row - this.getBowRow()] = true;
+					return true;
+				}
 			}
-			return false;
 		}
+		return false;
 	}
 
 	/**
-	 * Return true if every part of the ship has been hit
+	 * Return true if all the parts of the ship is hit
 	 * @return
 	 */
 	public boolean isSunk(){
-		boolean isSunk = true;
-		for(int i=0; i<this.hit.length;i++){
-			isSunk = isSunk && this.hit[i];
+		int L = this.getLength();
+		for (int i = 0; i < L; i++){
+			if(!this.hit[i]){
+				return false;
+			}
 		}
-		if (isSunk){
-			ocean.setShipsSunk(ocean.getShipsSunk()+1);
-			return true;
+		return true;
+	}
+
+	/**
+	 * Return a single-character
+	 */
+	@Override
+	public String toString(){
+		if(this.isSunk()){
+			return "x";
 		}
 		else{
-			return false;
+			return "S";
 		}
 	}
-
-	@Override
-	/**
-	 * This method should return ”x” if the ship has been sunk, ”S” if it has not been sunk.
-	 */
-	public String toString(){
-		return "";
-	}
-
 
 
 }
