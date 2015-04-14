@@ -86,7 +86,7 @@ abstract class Ship {
 	abstract String getShipType();
 
 	/**
-	 * Return true if it is okay to put a ship in the ocean
+	 * Determine whether it is ok to put a ship
 	 * @param row
 	 * @param column
 	 * @param horizontal
@@ -94,57 +94,44 @@ abstract class Ship {
 	 * @return
 	 */
 	public boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean){
-		int Row = row;
-		int Column = column;
-		int endRow;
-		int endColumn;
-		if (!horizontal){
-			endRow = Row + this.length;
-			endColumn = Column;
-		}
-		else{
-			endRow = Row;
-			endColumn = Column + this.length;
-		}
-		//if the ship within range of the sea
-		if ( (Row >= 0) &&(Column>=0)&& (endColumn <= 9)&&(endRow<= 9) ){
-			int n=0;
-			//check if the ship is overlapped with other ships
-			for (int c = Column; c <= endColumn; c++ ){
-				for (int r =Row; r <= endRow; r++){
-					if(ocean.isOccupied(r, c)){
-						n ++;
-					}
-				}
-			}
-			//if any part of the ship overlaps with other ships, return false
-			if (n>0){
-				return false;
-			}
-			//when the ship is within range, check peripheral
-			else{
-				for (int c = Column-1; c <= endColumn+1; c++ ){
-					for (int r =Row-1; r < endRow+1; r++){
-						if (c>=0 && c<=9 && r>=0 &&r<=9){
-							if(ocean.isOccupied(r, c)){
-								n ++;
-							}
-						}
-					}
-				}
-				if (n>0){
-					return false;
-				}
-				else{
-					return true;
-				}
-			}
-		}
-		else{
+		int L = this.getLength();
+		if(row > 9 || column >9){
 			return false;
 		}
+		else{
+			if(horizontal){
+				if(column > 10-L)
+					{
+						return false;
+					}
+				}
+			else{
+				if(row > 10-L)
+				{
+					return false;
+				}
+			}
+		}
+		if (horizontal){
+			for(int i = column - 1; i < column + L + 1; i++){
+				for(int j = row -1; j < row + 2; j++){
+					if(i>-1 && i<10 && j>-1 && j<10 && ocean.isOccupied(j, i)){
+						return false;
+					}
+				}
+			}
+		}
+		else{
+			for(int i = column - 1; i < column + 2; i++){
+				for(int j = row -1; j < row + L + 1; j++){
+					if(i>-1 && i<10 && j>-1 && j<10 && ocean.isOccupied(j, i)){
+						return false;
+					}
+				}
+			}
+		}
+		return true;
 	}
-
 
 	/**
 	 * Puts the ship in the ocean

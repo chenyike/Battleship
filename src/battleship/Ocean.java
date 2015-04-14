@@ -35,43 +35,56 @@ public class Ocean {
 		this.shipsSunk = 0;
 	}
 
-	void placeOneShip(Ship ship) {
-		boolean horizontal;
-		int row = new Random().nextInt(10);
-		int column = new Random().nextInt(10);
-		if (new Random().nextInt(2) == 1){
-			horizontal = false;
+	/**
+	 * Place all ships randomly
+	 */
+	public void placeAllShipsRandomly(){
+		Random rd = new Random();
+		Ship bs = new Battleship();
+		boolean valid = false;
+		int row = 0;
+		int column = 0;
+		boolean horizontal = false;
+		while(!valid){
+			row = rd.nextInt(9);
+			column = rd.nextInt(9);
+			horizontal = rd.nextBoolean();
+			valid = bs.okToPlaceShipAt(row,column,horizontal,this);
 		}
-		else{
-			horizontal = true;
-		}
-
-		while(! ship.okToPlaceShipAt(row, column, horizontal, this)){
-			row = new Random().nextInt(10);
-			column = new Random().nextInt(10);
-			if (new Random().nextInt(2) == 1){
-				horizontal = false;
+		bs.placeShipAt(row, column, horizontal, this);
+		for (int i=0; i<2; i++){
+			valid = false;
+			Ship cru = new Cruiser();
+			while(!valid){
+				row = rd.nextInt(9);
+				column = rd.nextInt(9);
+				horizontal = rd.nextBoolean();
+				valid = cru.okToPlaceShipAt(row,column,horizontal,this);
 			}
-			else{
-				horizontal =true;
-			}
+			cru.placeShipAt(row, column, horizontal, this);
 		}
-		ship.placeShipAt(row, column, horizontal, this);
-	}
-
-
-
-	void placeAllShipsRandomly(){
-		placeOneShip(this.battleship);
-		placeOneShip(this.cruiser1);
-		placeOneShip(this.cruiser2);
-		placeOneShip(this.destroyer1);
-		placeOneShip(this.destroyer2);
-		placeOneShip(this.destroyer3);
-		placeOneShip(this.submarine1);
-		placeOneShip(this.submarine2);
-		placeOneShip(this.submarine3);
-		placeOneShip(this.submarine4);	
+		for (int i=0; i<3; i++){
+			valid = false;
+			Ship des = new Destroyer();
+			while(!valid){
+				row = rd.nextInt(9);
+				column = rd.nextInt(9);
+				horizontal = rd.nextBoolean();
+				valid = des.okToPlaceShipAt(row,column,horizontal,this);
+			}
+			des.placeShipAt(row, column, horizontal, this);
+		}
+		for (int i=0; i<4; i++){
+			valid = false;
+			Ship sub = new Submarine();
+			while(!valid){
+				row = rd.nextInt(9);
+				column = rd.nextInt(9);
+				horizontal = rd.nextBoolean();
+				valid = sub.okToPlaceShipAt(row,column,horizontal,this);
+			}
+			sub.placeShipAt(row, column, horizontal, this);
+		}
 	}
 
 	/**
@@ -80,8 +93,8 @@ public class Ocean {
 	 * @param column
 	 * @return
 	 */
-	public boolean isOccupied(int row, int column){
-		if (ships[row][column].getShipType().equals("emptySea")){
+	public boolean isOccupied(int row,int column){
+		if(this.ships[row][column].getShipType().equals("empty")){
 			return false;
 		}
 		return true;
