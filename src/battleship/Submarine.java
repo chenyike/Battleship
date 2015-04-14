@@ -1,31 +1,19 @@
 package battleship;
 
-public class Submarine extends Ship {
-	
-	String shipType;
-	String whichOne;
-	int numOfShips;
-	
+public class Submarine extends Ship{
+
+
 	public Submarine() {
 		// TODO Auto-generated constructor stub
-		super();
-		this.length = 1;
-		this.numOfShips = 4;
-		this.shipType = "submarine";
+		this.setLength(1);
+		this.setHit(new boolean[] {false,false,false,false}); 
 	}
 	
-	public void defineNum(String num){
-		this.whichOne = num;
-	}
 	
-	 @Override
+	@Override
 	 public String getShipType() {
-		 return this.shipType;
+		 return "submarine";
 	 }
 	 
-	 @Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "this is " + this.shipType + this.whichOne;
-	}
+	
 }

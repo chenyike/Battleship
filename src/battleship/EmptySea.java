@@ -2,16 +2,9 @@ package battleship;
 
 public class EmptySea extends Ship {
 	
-	String shipType;
-	String whichOne;
-	int numOfShips;
-	
 	public EmptySea() {
 		// TODO Auto-generated constructor stub
-		super();
-		this.length = 1;
-		this.numOfShips = 80;
-		this.shipType = "submarine";
+		this.setLength(1); 
 	}
 	
 	@Override
@@ -26,12 +19,12 @@ public class EmptySea extends Ship {
 	
 	 @Override
 	 public String getShipType() {
-		 return this.shipType;
+		 return "emptySea";
 	 }
 	 
 	 @Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "this is ";
+		return ".";
 	}
 }
