@@ -19,7 +19,7 @@ public class EmptySea extends Ship {
 	
 	 @Override
 	 public String getShipType() {
-		 return "empty";
+		 return "emptySea";
 	 }
 	 
 	 @Override
