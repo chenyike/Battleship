@@ -12,7 +12,7 @@ abstract class Ship {
 	private boolean [] hit = new boolean[4];
 	private Ocean ocean;
 
-	
+
 
 	public int getLength() {
 		// TODO Auto-generated constructor stub
@@ -38,15 +38,15 @@ abstract class Ship {
 	public void setHit(boolean[] hit) {
 		this.hit = hit;
 	}
-	
+
 	/**
 	 * @param Set length
 	 */
 	public void setLength(int length) {
 		this.length = length;
 	}
-	
-	
+
+
 	/**
 	 * @param bowRow the bowRow to set
 	 */
@@ -159,17 +159,19 @@ abstract class Ship {
 	 * @param ocean
 	 */
 	public void placeShipAt(int row, int column, boolean horizontal, Ocean ocean){
-		this.bowRow = row;
-		this.bowColumn = column;
-		this.horizontal = horizontal;
-		if (this.horizontal){
-			for (int i=this.bowColumn; i<=(this.bowColumn+this.getLength());i++){
-				ocean.ships[this.bowRow][i] = this;
+		if(okToPlaceShipAt(row,column,horizontal, ocean)){
+			this.bowRow = row;
+			this.bowColumn = column;
+			this.horizontal = horizontal;
+			if (this.horizontal){
+				for (int i=this.bowColumn; i<=(this.bowColumn+this.getLength());i++){
+					ocean.getShipArray()[this.bowRow][i]=this;
+				}
 			}
-		}
-		else{
-			for (int i=this.bowRow; i<=(this.bowRow+this.getLength());i++){
-				ocean.ships[i][bowColumn] = this;
+			else{
+				for (int i=this.bowRow; i<=(this.bowRow+this.getLength());i++){
+					ocean.getShipArray()[i][this.bowColumn]=this;
+				}
 			}
 		}
 	}
@@ -184,7 +186,8 @@ abstract class Ship {
 		if (this.horizontal){
 			if ((row == this.bowRow) && (column <= this.bowColumn+this.length && column >= this.bowColumn)){
 				this.hit[column-this.bowColumn]=true;
-				ocean.hitCount++;
+				ocean.setHitCount(1);
+				//ocean.hitCount++;
 				return true;
 			}
 			return false;
@@ -225,7 +228,7 @@ abstract class Ship {
 		return "";
 	}
 
-	
+
 
 }
 

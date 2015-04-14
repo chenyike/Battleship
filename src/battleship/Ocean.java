@@ -3,10 +3,10 @@ package battleship;
 import java.util.*;
 
 public class Ocean {
-	Ship[][] ships = new Ship[10][10];
-	int shotsFired;
-	int hitCount;
-	int shipsSunk;
+	private Ship[][] ships = new Ship[10][10];
+	private int shotsFired;
+	private int hitCount;
+	private int shipsSunk;
 	private EmptySea emptySea;
 	private Ship ship;
 	private Battleship battleship;
@@ -109,6 +109,22 @@ public class Ocean {
 	}
 
 	/**
+	 * Returns the number of ships sunk (in this game).
+	 * @return
+	 */
+	public int getShipsSunk(){
+		return ocean.shipsSunk;
+	}
+	
+	/**
+	 * @param shipsSunk the shipsSunk to set
+	 */
+	public void setShipsSunk(int shipsSunk) {
+		this.shipsSunk = shipsSunk;
+	}
+	
+	
+	/**
 	 * Returns the number of shots fired (in this game).
 	 * @return
 	 */
@@ -123,14 +139,15 @@ public class Ocean {
 	public int getHitCount(){
 		return ocean.hitCount;
 	}
-
+	
 	/**
-	 * Returns the number of ships sunk (in this game).
-	 * @return
+	 * @param hitCount the hitCount to set
 	 */
-	public int getShipsSunk(){
-		return ocean.shipsSunk;
+	public void setHitCount(int hitCount) {
+		this.hitCount = hitCount;
 	}
+
+
 
 	/**
 	 * Returns true if all ships have been sunk, otherwise false.
@@ -145,6 +162,49 @@ public class Ocean {
 		}
 	}
 
+
+
+	/**
+	 * Prints the ocean. 
+	 */
+	public void print(){
+		System.out.println("\t 0\t 1\t 2\t 3\t 4\t 5\t 6\t 7\t 8\t 9\n ");
+		for (int i = 0; i < 11; i++) {
+			System.out.println("0");
+			for (int j=0;j<10;j++){
+				if (ship.shootAt(i,j)){
+					System.out.println("\t S");
+				}
+				else if (!ship.shootAt(i,j)){
+					System.out.println("\t -");
+				}
+				else if (ship.isSunk()){
+					System.out.println("\t x");
+				}
+				else {
+					System.out.println("\t "+emptySea);
+				}
+			}
+		}
+	}
+
+	
+	
+
+	/**
+	 * @param shotsFired the shotsFired to set
+	 */
+	public void setShotsFired(int shotsFired) {
+		this.shotsFired = shotsFired;
+	}
+
+	/**
+	 * @return the ships
+	 */
+	public Ship[][] getShips() {
+		return ships;
+	}
+
 	/**
 	 * Returns the 10x10 array of ships.
 	 * @return
@@ -152,17 +212,14 @@ public class Ocean {
 	public Ship[][] getShipArray(){
 		return ships;
 	}
-
+	
 	/**
-	 * Prints the ocean. 
+	 * @param ships the ships to set
 	 */
-	public void print(){
-		for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                System.out.print(ships[i][j] + " ");
-            }
-            System.out.println();
-        }
+	public void setShips(Ship[][] ships) {
+		this.ships = ships;
 	}
+
+	
 
 }
