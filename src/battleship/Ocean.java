@@ -48,7 +48,7 @@ public class Ocean {
 
 		while(! ship.okToPlaceShipAt(row, column, horizontal, this)){
 			row = new Random().nextInt(10);
-			column = new Random().nextInt(10);
+			column = new Random().nextInt(10); //
 			if (new Random().nextInt(2) == 1){
 				horizontal = false;
 			}
