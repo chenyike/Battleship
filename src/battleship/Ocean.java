@@ -91,19 +91,26 @@ public class Ocean {
 	 */
 	public boolean shootAt(int row, int column){
 		this.shotsFired += 1;
-		if(this.ships[row][column].shootAt(row,column)){
-			this.hits[row][column] = "hit";
-			this.hitCount += 1;
-			if(this.ships[row][column].isSunk()){
-				this.hits[row][column] = "miss";
-				this.shipsSunk += 1;
+		if(!this.ships[row][column].isSunk()){
+			if(this.ships[row][column].shootAt(row,column)){
+				this.hits[row][column] = "hit";
+				this.hitCount += 1;
+				if(this.ships[row][column].isSunk()){
+					this.hits[row][column] = "hit";
+					this.shipsSunk += 1;
+				}
+				return true;
 			}
-			return true;
+			else{
+				this.hits[row][column] = "miss";
+				return false;
+			}
 		}
 		else{
-			this.hits[row][column] = "miss";
+			this.hits[row][column] = "sink";
 			return false;
 		}
+		
 	}
 
 
@@ -166,7 +173,7 @@ public class Ocean {
 		for (int i = 0; i < 10; i++) {
 			System.out.print(i);
 			for (int j=0;j<10;j++){
-				if(hits[i][j].equals("hit")){
+				if(hits[i][j].equals("hit")||hits[i][j].equals("sink")){
 					System.out.print("\t" + ships[i][j]);
 				}
 				else if (hits[i][j].equals("miss")){

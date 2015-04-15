@@ -43,7 +43,7 @@ public class BattleshipGame {
 	 * @param column
 	 */
 	public void shootAt(int row, int column){
-		this.println("Shoot at the location: " + "(" + row + ", " +column +  ")\n");
+		this.println("Shoot at location: " + "(" + row + ", " +column +  ")\n");
 		if(this.ocean.shootAt(row,column)){
 			this.println("hit\n");
 		}
