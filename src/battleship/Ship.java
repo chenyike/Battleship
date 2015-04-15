@@ -17,12 +17,15 @@ abstract class Ship {
 		return this.length;
 	}
 
+
 	/**
 	 * @return the bowRow
 	 */
 	public int getBowRow() {
 		return this.bowRow;
 	}
+
+
 	/**
 	 * @return the hit
 	 */
@@ -30,12 +33,14 @@ abstract class Ship {
 		return hit;
 	}
 
+
 	/**
 	 * @param hit the hit to set
 	 */
 	public void setHit(boolean[] hit) {
 		this.hit = hit;
 	}
+
 
 	/**
 	 * @param Set length
@@ -52,12 +57,14 @@ abstract class Ship {
 		this.bowRow = bowRow;
 	}
 
+
 	/**
 	 * @return the bowColumn
 	 */
 	public int getBowColumn() {
 		return this.bowColumn;
 	}
+
 
 	/**
 	 * @param bowColumn the bowColumn to set
@@ -66,12 +73,14 @@ abstract class Ship {
 		this.bowColumn = bowColumn;
 	}
 
+
 	/**
 	 * @return the horizontal
 	 */
 	public boolean isHorizontal() {
 		return this.horizontal;
 	}
+
 
 	/**
 	 * @param horizontal the horizontal to set
@@ -80,13 +89,15 @@ abstract class Ship {
 		this.horizontal = horizontal;
 	}
 
+
 	/**
 	 * abstract method
 	 */
 	abstract String getShipType();
 
+
 	/**
-	 * Return true if it is okay to put a ship in the ocean
+	 * Determine whether it is ok to put a ship
 	 * @param row
 	 * @param column
 	 * @param horizontal
@@ -135,14 +146,10 @@ abstract class Ship {
 				if (n>0){
 					return false;
 				}
-				else{
-					return true;
-				}
+				return true;
 			}
 		}
-		else{
-			return false;
-		}
+		return false;
 	}
 
 
@@ -170,6 +177,7 @@ abstract class Ship {
 		}
 	}
 
+
 	/**
 	 * Whether shoot at a ship
 	 * @param row
@@ -180,13 +188,15 @@ abstract class Ship {
 		int L = this.getLength();
 		if(!this.isSunk()){
 			if(this.isHorizontal()){
-				if(row == this.getBowRow() && column >= this.getBowColumn() && column <L + this.getBowColumn()){
+				if(row == this.getBowRow() && column >= this.getBowColumn()
+						&& column <L + this.getBowColumn()){
 					this.hit[column - this.getBowColumn()] = true;
 					return true;
 				}
 			}
 			else{
-				if(row >= this.getBowRow() && row < this.getBowRow()+L && column == this.getBowColumn()){
+				if(row >= this.getBowRow() && row < this.getBowRow()+L
+						&& column == this.getBowColumn()){
 					this.hit[row - this.getBowRow()] = true;
 					return true;
 				}
@@ -194,6 +204,7 @@ abstract class Ship {
 		}
 		return false;
 	}
+
 
 	/**
 	 * Return true if all the parts of the ship is hit
@@ -209,6 +220,7 @@ abstract class Ship {
 		return true;
 	}
 
+
 	/**
 	 * Return a single-character
 	 */
@@ -221,7 +233,6 @@ abstract class Ship {
 			return "S";
 		}
 	}
-
 
 }
 
