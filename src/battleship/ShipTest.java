@@ -28,15 +28,22 @@ public class ShipTest {
 				this.ocean.getShipArray()[i][j] = emptySea;
 			}
 		}
+		cruiser1.setBowRow(2);
+		cruiser1.setBowColumn(3);
+		cruiser1.setHorizontal(true);
 		this.ocean.getShipArray()[2][3]=cruiser1;
 		this.ocean.getShipArray()[2][4]=cruiser1;
 		this.ocean.getShipArray()[2][5]=cruiser1;
+
+		battleship1.setBowColumn(0);
+		battleship1.setBowRow(0);
+		battleship1.setHorizontal(false);
 		this.ocean.getShipArray()[0][0]=battleship1;
 		this.ocean.getShipArray()[1][0]=battleship1;
 		this.ocean.getShipArray()[2][0]=battleship1;
 		this.ocean.getShipArray()[3][0]=battleship1;
-		this.ocean.getShipArray()[9][9]=submarine4;
-		
+
+
 	}
 
 
@@ -66,7 +73,7 @@ public class ShipTest {
 		assertTrue(submarine3.okToPlaceShipAt(9, 0, false, ocean));
 	}
 
-	
+
 	@Test
 	public void testPlaceShipAt() {
 		submarine1.placeShipAt(0, 2, true, ocean);
@@ -77,9 +84,10 @@ public class ShipTest {
 		assertTrue(ocean.getShipArray()[5][3].getShipType().equals("cruiser"));
 	}
 
-	
+
 	@Test
 	public void testShootAt() {
+		//test horizontal case
 		assertTrue(battleship1.shootAt(0, 0));
 		assertTrue(battleship1.shootAt(1, 0));
 		assertTrue(battleship1.shootAt(2, 0));
@@ -89,30 +97,47 @@ public class ShipTest {
 		assertFalse(battleship1.shootAt(1, 0));
 		assertFalse(battleship1.shootAt(2, 0));
 		assertFalse(battleship1.shootAt(3, 0));		
-		
+		//test vertical case
 		assertTrue(cruiser1.shootAt(2, 3));
 		assertTrue(cruiser1.shootAt(2, 4));
 		assertTrue(cruiser1.shootAt(2, 5));
+		//test vertical's sunk case
 		assertFalse(cruiser1.shootAt(2, 3));
-		
-		assertTrue(submarine4.shootAt(9, 9));
+		assertFalse(cruiser1.shootAt(2, 4));
+		assertFalse(cruiser1.shootAt(2, 5));
+
 	}
 
-	
+
 	@Test
 	public void testIsSunk() {
+		//test horizontal case
+		assertFalse(battleship1.isSunk());
 		battleship1.shootAt(0, 0);
 		battleship1.shootAt(1, 0);
 		battleship1.shootAt(2, 0);
 		battleship1.shootAt(3, 0);
 		assertTrue(battleship1.isSunk());
+		//test vertical case
+		assertFalse(cruiser1.isSunk());
+		cruiser1.shootAt(2, 3);
+		cruiser1.shootAt(2, 4);
+		cruiser1.shootAt(2, 5);
+		assertTrue(cruiser1.isSunk());
+	}
+
+
+	@Test
+	public void testToString() {
+		battleship1.shootAt(0, 0);
+		battleship1.shootAt(1, 0);
+		battleship1.shootAt(2, 0);
+		battleship1.shootAt(3, 0);
+		assertTrue(battleship1.toString().equals("x"));
+		cruiser1.shootAt(2, 3);
+		assertTrue(cruiser1.toString().equals("S"));
 		
 	}
 
-	
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
 
 }

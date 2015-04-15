@@ -199,18 +199,18 @@ abstract class Ship {
 		int L = this.getLength();
 		if(!this.isSunk()){
 			if(this.isHorizontal()){
-				if(row == this.getBowRow() && column >= this.getBowColumn()
-						&& column <L + this.getBowColumn()){
+				if( row == this.getBowRow() && column >= this.getBowColumn()   && column < (L + this.getBowColumn())){
 					this.hit[column - this.getBowColumn()] = true;
 					return true;
 				}
+				return false;
 			}
 			else{
-				if(row >= this.getBowRow() && row < this.getBowRow()+L
-						&& column == this.getBowColumn()){
+				if(row >= this.getBowRow() && (row < (this.getBowRow()+L) ) && column == this.getBowColumn()){
 					this.hit[row - this.getBowRow()] = true;
 					return true;
 				}
+				return false;
 			}
 		}
 		return false;
