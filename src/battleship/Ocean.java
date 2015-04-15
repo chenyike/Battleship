@@ -144,6 +144,14 @@ public class Ocean {
     }
 
 
+	/**
+	 * @param shipsSunk the shipsSunk to set
+	 */
+	public void setShipsSunk(int shipsSunk) {
+		this.shipsSunk = shipsSunk;
+	}
+	
+
     /**
      * Returns true if all the ships have been sunk
      * @return
@@ -191,6 +199,8 @@ public class Ocean {
             System.out.println("\n");
         }
     }
+
+
 
 }
 
