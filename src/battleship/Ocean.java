@@ -1,3 +1,6 @@
+/**
+ * HW11 Yike Chen and Hao Liu
+ */
 package battleship;
 import java.util.*;
 

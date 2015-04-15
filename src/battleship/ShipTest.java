@@ -70,7 +70,7 @@ public class ShipTest {
 		assertTrue(submarine1.okToPlaceShipAt(0, 9, true, ocean));
 		assertTrue(submarine2.okToPlaceShipAt(6, 8, true, ocean));
 		assertTrue(submarine3.okToPlaceShipAt(9, 0, true, ocean));
-		assertTrue(submarine3.okToPlaceShipAt(9, 0, false, ocean));
+		assertTrue(submarine4.okToPlaceShipAt(9, 0, false, ocean));
 	}
 
 
