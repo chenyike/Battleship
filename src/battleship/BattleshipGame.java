@@ -1,3 +1,7 @@
+/**
+ * HW11 Yike Chen and Hao Liu
+ */
+
 package battleship;
 
 import java.util.Scanner;
@@ -38,7 +42,10 @@ public class BattleshipGame {
 
 
 	/**
-	 * Take the shoot
+	 * Take the shoot. The human player tries to hit the ships, by calling out a row and column number. 
+	 * The computer responds with one bit of information saying ”hit” or ”miss.” When a ship is hit but not sunk, 
+	 * the program does not provide any information about what kind of a ship was hit. 
+	 * However, when a ship is hit and sinks, the program prints out a message ”You just sank a ship-type.” 
 	 * @param row
 	 * @param column
 	 */
@@ -46,6 +53,9 @@ public class BattleshipGame {
 		this.println("Shoot at location: " + "(" + row + ", " +column +  ")\n");
 		if(this.ocean.shootAt(row,column)){
 			this.println("hit\n");
+			if(this.ocean.getShipArray()[row][column].isSunk()){
+				this.println("You just sank a "+this.ocean.getShipArray()[row][column].getShipType()+"!\n\n");
+			}
 		}
 		else {
 			this.println("miss\n");
@@ -105,7 +115,9 @@ public class BattleshipGame {
 
 
 	/**
-	 * Start the game
+	 * Start the game. In this class we will set up the game; accept ”shots” from the user; 
+	 * display the results; print final scores; and ask the user if he/she wants to play again. 
+	 * All input/output is done here (although some of it is done by calling a print() method in the Ocean class.) 
 	 */
 	public void start(){
 		this.println("Welcome to the Battleship Game! \nYou will now play against computer. "
@@ -122,11 +134,11 @@ public class BattleshipGame {
 				String row = "";
 				String column = "";
 				while(!checkInput(row)){
-					this.println("Please enter the row number you want to shoot at (0-9):");
+					this.println("Please enter the row number you want to shoot at (0-9): ");
 					row = sc.next();
 				}
 				while(!checkInput(column)){
-					this.println("Please enter the column number you want to shoot at (0-9):");
+					this.println("Please enter the column number you want to shoot at (0-9): ");
 					column = sc.next();
 				}
 				this.shootAt(Integer.parseInt(row),Integer.parseInt(column));
