@@ -74,12 +74,12 @@ public class BattleshipGame {
 
 
 	/**
-	 *Print the final result
+	 *Print the final result, including total ships sunk, total shots fired, total hit counts
 	 */
 	public void finalResult(){
-		this.println("Your total hits number: " + this.ocean.getHitCount() +"\n"
+		this.println("Congrats! You win. \nYour total hits number: " + this.ocean.getHitCount() +"\n"
 				+ "Total Ships Sunk: " + this.ocean.getShipsSunk() + "\n"
-				+ "Total shoots fired: " + this.ocean.getShotsFired() + "\n");
+				+ "Total shoots fired: " + this.ocean.getShotsFired() + "\nThe final state of the battlefield looks like this: \n");
 		this.display();
 	}
 
