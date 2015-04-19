@@ -34,6 +34,9 @@ public class Ocean {
         int row = 0;
         int column = 0;
         boolean horizontal = false;
+        row = rd.nextInt(10);
+        column = rd.nextInt(10);
+        horizontal = rd.nextBoolean();
         while(!ship.okToPlaceShipAt(row,column,horizontal,this)){
             row = rd.nextInt(10);
             column = rd.nextInt(10);
@@ -115,7 +118,6 @@ public class Ocean {
             this.hits[row][column] = "sink";
             return false;
         }
-        
     }
 
 
@@ -202,8 +204,5 @@ public class Ocean {
             System.out.println("\n");
         }
     }
-
-
-
 }
 
